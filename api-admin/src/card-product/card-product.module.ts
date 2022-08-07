@@ -1,15 +1,10 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { CardProductService } from './card-product.service';
+import { CardProductController } from './card-product.controller';
 import { HttpModule } from '@nestjs/axios';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
-import { FetchService } from './services/fetch.service';
-import { CardProductModule } from './card-product/card-product.module';
-
 @Module({
-  controllers: [AppController],
-  providers: [AppService, FetchService, ConfigService],
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
@@ -26,7 +21,8 @@ import { CardProductModule } from './card-product/card-product.module';
       }),
       inject: [ConfigService],
     }),
-    CardProductModule,
   ],
+  controllers: [CardProductController],
+  providers: [CardProductService],
 })
-export class AppModule {}
+export class CardProductModule {}
